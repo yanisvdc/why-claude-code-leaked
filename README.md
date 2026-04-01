@@ -49,6 +49,18 @@ jobs:
           fi
 ```
 
+### 2. Manual Verification
+Always run `npm pack --dry-run` before publishing. This lets you inspect the exact file list that will be uploaded to the registry.
+
+---
+
+### 🔗 Authoritative Sources & Community Discussion
+*   **[Reddit: r/ClaudeAI - Claude Code Source Leak Megathread](https://reddit.com)**
+*   **[Layer5: The Fastest Growing Repo in History](https://layer5.io)**
+*   **[SOCRadar: Operational Risks for Security Teams](https://socradar.io)**
+*   **[VentureBeat: Malicious Repository Risks Following the Leak](https://venturebeat.com)**
+
+
 ## 🔍 Key Findings from Research Reports
 According to public analysis by security researchers (e.g., Chaofan Shou), the exposure revealed:
 *   **The Orchestration Layer:** Detailed logic on how the agent coordinates multi-step tool use and bash command validation.

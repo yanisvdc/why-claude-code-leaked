@@ -14,7 +14,7 @@ Pre-publish guardrails for npm maintainers to catch accidental artifact exposure
 ---
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/0ea82380-e41b-46c0-92a9-c5e4bf09a2d4" width="700" alt="Packaging security case study visual"/>
+  <img src="https://github.com/user-attachments/assets/0ea82380-e41b-46c0-92a9-c5e4bf09a2d4" width="740" alt="Packaging security case study visual"/>
 </p>
 
 ## What This Repo Adds
@@ -45,7 +45,7 @@ node scripts/compare-pack-manifest.mjs
 Full quickstart: `docs/adopt-in-5-minutes.md`
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/b2149769-d5d6-4fe9-8cc3-ab38fa27bc10" width="700" alt="Use this in 5 minutes"/>
+  <img src="https://github.com/user-attachments/assets/b2149769-d5d6-4fe9-8cc3-ab38fa27bc10" width="740" alt="Use this in 5 minutes"/>
 </p>
 
 ## Recommended Adoption Paths

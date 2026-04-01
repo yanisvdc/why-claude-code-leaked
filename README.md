@@ -10,8 +10,6 @@ A comprehensive post-mortem and technical breakdown of the March 31, 2026, sourc
   <img src="https://github.com/user-attachments/assets/0ea82380-e41b-46c0-92a9-c5e4bf09a2d4" width="800"/>
 </p>
 
-<img width="1024" height="1536" alt="image" src="https://github.com/user-attachments/assets/0ea82380-e41b-46c0-92a9-c5e4bf09a2d4" />
-
 ## 📝 Incident Overview
 On March 31, 2026, version **2.1.88** of the `@anthropic-ai/claude-code` package was published to the npm registry. Due to a configuration error, a **59.8 MB source map file** (`cli.js.map`) was included in the public distribution. This allowed researchers to reconstruct approximately **512,000 lines of unobfuscated TypeScript** across 1,906 files.
 

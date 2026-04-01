@@ -6,6 +6,11 @@ A comprehensive post-mortem and technical breakdown of the March 31, 2026, sourc
 > **Zero Proprietary Code Policy:** This repository does NOT host, mirror, or link to any leaked source code, binaries, or Anthropic intellectual property. It is strictly for educational analysis of npm packaging security and incident response.
 
 ---
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/0ea82380-e41b-46c0-92a9-c5e4bf09a2d4" width="500"/>
+</p>
+
+<img width="1024" height="1536" alt="image" src="https://github.com/user-attachments/assets/0ea82380-e41b-46c0-92a9-c5e4bf09a2d4" />
 
 ## 📝 Incident Overview
 On March 31, 2026, version **2.1.88** of the `@anthropic-ai/claude-code` package was published to the npm registry. Due to a configuration error, a **59.8 MB source map file** (`cli.js.map`) was included in the public distribution. This allowed researchers to reconstruct approximately **512,000 lines of unobfuscated TypeScript** across 1,906 files.
@@ -16,8 +21,6 @@ The leak resulted from a "triple-failure" chain in the CI/CD pipeline:
 1.  **Missing `.npmignore`:** The build process generated a massive source map. Because the `.npmignore` file (or the `files` field in `package.json`) did not explicitly exclude `*.map` files, it was bundled into the production npm package.
 2.  **Bun Runtime Bug:** Reports suggest a known issue in the **Bun runtime** (Bun bug #28001) caused source maps to be generated even when the configuration explicitly requested they be disabled for production builds.
 3.  **R2 Bucket Misconfiguration:** The source maps contained pointers to a ZIP archive on a Cloudflare R2 bucket. This bucket was inadvertently set to "Public," allowing the full codebase to be retrieved via the metadata found in the npm package.
-
-<img width="1024" height="1536" alt="image" src="https://github.com/user-attachments/assets/0ea82380-e41b-46c0-92a9-c5e4bf09a2d4" />
 
 ## 🔍 Key Findings from Research Reports
 According to public analysis by security researchers (e.g., Chaofan Shou), the exposure revealed:

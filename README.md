@@ -6,6 +6,8 @@ A comprehensive post-mortem and technical breakdown of the March 31, 2026, sourc
 > **Zero Proprietary Code Policy:** This repository does NOT host, mirror, or link to any leaked source code, binaries, or Anthropic intellectual property. It is strictly for educational analysis of npm packaging security and incident response.
 
 ---
+<img src="https://github.com/user-attachments/assets/0ea82380-e41b-46c0-92a9-c5e4bf09a2d4" width="500">
+
 <p align="center">
   <img src="https://github.com/user-attachments/assets/0ea82380-e41b-46c0-92a9-c5e4bf09a2d4" width="500"/>
 </p>

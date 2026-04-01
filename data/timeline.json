@@ -1,0 +1,30 @@
+[
+  {
+    "timestamp_utc": "2026-03-31T04:00:00Z",
+    "event": "Package version 2.1.88 reported published to npm",
+    "type": "reported",
+    "confidence": "medium",
+    "source_ids": ["register-coverage", "venturebeat-coverage"]
+  },
+  {
+    "timestamp_utc": "2026-03-31T08:23:00Z",
+    "event": "Researcher post reports source-map exposure",
+    "type": "reported",
+    "confidence": "medium",
+    "source_ids": ["register-coverage", "venturebeat-coverage"]
+  },
+  {
+    "timestamp_utc": "2026-03-31T00:00:00Z",
+    "event": "Anthropic statement: packaging issue caused by human error; not a security breach",
+    "type": "reported",
+    "confidence": "medium",
+    "source_ids": ["register-coverage", "venturebeat-coverage"]
+  },
+  {
+    "timestamp_utc": "2026-03-11T08:21:38Z",
+    "event": "Bun issue #28001 opened about production source-map behavior in frontend server",
+    "type": "tooling-context",
+    "confidence": "medium",
+    "source_ids": ["bun-issue-28001"]
+  }
+]

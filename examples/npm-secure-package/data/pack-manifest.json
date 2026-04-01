@@ -1,0 +1,23 @@
+{
+  "generatedAt": "2026-04-01T15:44:24.930Z",
+  "fileCount": 4,
+  "totalBytes": 2220,
+  "files": [
+    {
+      "path": "dist/index.js",
+      "size": 78
+    },
+    {
+      "path": "LICENSE",
+      "size": 1077
+    },
+    {
+      "path": "package.json",
+      "size": 663
+    },
+    {
+      "path": "README.md",
+      "size": 402
+    }
+  ]
+}

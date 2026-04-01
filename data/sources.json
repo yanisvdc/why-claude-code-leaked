@@ -1,0 +1,121 @@
+[
+  {
+    "id": "npm-package-json-docs",
+    "category": "official-docs",
+    "title": "package.json | npm Docs",
+    "publisher": "npm",
+    "published": null,
+    "url": "https://docs.npmjs.com/cli/v9/configuring-npm/package-json/",
+    "summary": "Defines how the files field and ignore behavior determine published package contents.",
+    "confidence": "high",
+    "fetch": {
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "fetched_at": "2026-04-01T15:38:34.436327+00:00",
+      "title_fetched": "package.json | npm Docs",
+      "error": null
+    }
+  },
+  {
+    "id": "npm-publish-docs",
+    "category": "official-docs",
+    "title": "npm publish | npm Docs",
+    "publisher": "npm",
+    "published": null,
+    "url": "https://docs.npmjs.com/cli/v9/commands/npm-publish",
+    "summary": "Explains publish semantics and references npm pack dry-run for reviewing included files.",
+    "confidence": "high",
+    "fetch": {
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "fetched_at": "2026-04-01T15:38:34.617246+00:00",
+      "title_fetched": "npm-publish | npm Docs",
+      "error": null
+    }
+  },
+  {
+    "id": "npm-pack-docs",
+    "category": "official-docs",
+    "title": "npm pack | npm Docs",
+    "publisher": "npm",
+    "published": null,
+    "url": "https://docs.npmjs.com/cli/v8/commands/npm-pack",
+    "summary": "Documents npm pack and dry-run behavior used for pre-publish artifact checks.",
+    "confidence": "high",
+    "fetch": {
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "fetched_at": "2026-04-01T15:38:34.879313+00:00",
+      "title_fetched": "npm-pack | npm Docs",
+      "error": null
+    }
+  },
+  {
+    "id": "cloudflare-r2-public-buckets",
+    "category": "official-docs",
+    "title": "Public buckets | Cloudflare R2 docs",
+    "publisher": "Cloudflare",
+    "published": null,
+    "url": "https://developers.cloudflare.com/r2/buckets/public-buckets/",
+    "summary": "Explains R2 public access options and warns to disable r2.dev when using access controls.",
+    "confidence": "high",
+    "fetch": {
+      "status": 200,
+      "content_type": "text/html",
+      "fetched_at": "2026-04-01T15:38:35.068383+00:00",
+      "title_fetched": "Public buckets \u00b7 Cloudflare R2 docs",
+      "error": null
+    }
+  },
+  {
+    "id": "bun-issue-28001",
+    "category": "tooling-discussion",
+    "title": "Bun's frontend development server - Source map incorrectly served when in production",
+    "publisher": "GitHub / oven-sh",
+    "published": "2026-03-11",
+    "url": "https://github.com/oven-sh/bun/issues/28001",
+    "summary": "Open issue discussing source map behavior in Bun frontend development server production mode.",
+    "confidence": "medium",
+    "fetch": {
+      "status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "fetched_at": "2026-04-01T15:38:35.217850+00:00",
+      "title_fetched": "Bun&#39;s frontend development server - Source map incorrectly served when in production \u00b7 Issue #28001 \u00b7 oven-sh/bun \u00b7 GitHub",
+      "error": null
+    }
+  },
+  {
+    "id": "register-coverage",
+    "category": "reporting",
+    "title": "Anthropic goes nude, exposes Claude Code source by accident",
+    "publisher": "The Register",
+    "published": "2026-03-31",
+    "url": "https://www.theregister.com/2026/03/31/anthropic_claude_code_source_code/",
+    "summary": "Reports packaging-related source exposure and includes Anthropic spokesperson statement.",
+    "confidence": "medium",
+    "fetch": {
+      "status": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "fetched_at": "2026-04-01T15:38:36.146064+00:00",
+      "title_fetched": "Anthropic accidentally exposes Claude Code source code \u2022 The Register",
+      "error": null
+    }
+  },
+  {
+    "id": "venturebeat-coverage",
+    "category": "reporting",
+    "title": "Claude Code's source code appears to have leaked: here's what we know",
+    "publisher": "VentureBeat",
+    "published": "2026-03-31",
+    "url": "https://venturebeat.com/technology/claude-codes-source-code-appears-to-have-leaked-heres-what-we-know/",
+    "summary": "Summarizes incident timeline and publishes Anthropic statement on packaging error.",
+    "confidence": "medium",
+    "fetch": {
+      "status": 429,
+      "content_type": "",
+      "fetched_at": "2026-04-01T15:38:36.331408+00:00",
+      "title_fetched": null,
+      "error": "HTTPError: Too Many Requests"
+    }
+  }
+]

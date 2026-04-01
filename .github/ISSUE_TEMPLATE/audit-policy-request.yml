@@ -1,0 +1,46 @@
+name: Audit Policy Request
+description: Propose new package-audit checks or stricter defaults.
+title: "[policy] "
+labels:
+  - policy
+  - enhancement
+body:
+  - type: input
+    id: problem
+    attributes:
+      label: What risk should be covered?
+      placeholder: "Example: block .snap files from npm tarballs"
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed rule
+      placeholder: "Describe the exact rule and why it reduces risk."
+    validations:
+      required: true
+  - type: textarea
+    id: impact
+    attributes:
+      label: Expected impact on maintainers
+      placeholder: "False positives, migration effort, edge cases."
+    validations:
+      required: true
+  - type: textarea
+    id: examples
+    attributes:
+      label: Example patterns or files
+      placeholder: |
+        blockedExtensions:
+        - .map
+        highRiskPatterns:
+        - (^|/)private/
+    validations:
+      required: false
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Validation checklist
+      options:
+        - label: I verified this is not already covered in `package-audit.config.json`
+        - label: I included at least one real-world rationale

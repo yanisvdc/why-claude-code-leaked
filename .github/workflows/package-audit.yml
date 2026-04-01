@@ -1,0 +1,48 @@
+name: Package Audit
+
+on:
+  pull_request:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install dependencies if package.json exists
+        shell: bash
+        run: |
+          if [ -f package.json ]; then
+            if [ -f package-lock.json ]; then
+              npm ci
+            else
+              npm install --no-audit --no-fund
+            fi
+          fi
+
+      - name: Run package audit
+        shell: bash
+        run: |
+          if [ -f package.json ]; then
+            node scripts/audit-package.mjs --max-bytes=500000
+          else
+            echo "No package.json found, skipping npm package audit."
+          fi
+
+      - name: Compare against baseline manifest (if present)
+        shell: bash
+        run: |
+          if [ -f package.json ] && [ -f data/pack-manifest.json ]; then
+            node scripts/compare-pack-manifest.mjs
+          else
+            echo "No package.json or no baseline manifest; skipping comparison."
+          fi

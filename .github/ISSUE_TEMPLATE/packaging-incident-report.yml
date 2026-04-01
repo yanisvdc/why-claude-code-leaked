@@ -1,0 +1,67 @@
+name: Packaging Incident Report
+description: Report an accidental publish exposure, artifact leak, or release pipeline failure.
+title: "[incident] "
+labels:
+  - incident
+  - triage
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting. Do not paste proprietary code, secrets, or exploit payloads.
+  - type: input
+    id: affected_package
+    attributes:
+      label: Affected package name
+      placeholder: "@scope/package-name"
+    validations:
+      required: true
+  - type: input
+    id: affected_version
+    attributes:
+      label: Affected version(s)
+      placeholder: "e.g., 1.2.3, 1.2.4"
+    validations:
+      required: true
+  - type: dropdown
+    id: exposure_type
+    attributes:
+      label: Exposure type
+      options:
+        - Source maps included
+        - Sensitive file included
+        - Unexpected large artifact
+        - Public storage exposure
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: discovered_how
+    attributes:
+      label: How it was discovered
+      description: Include commands and safe reproduction steps only.
+      placeholder: "npm pack --dry-run --json showed..."
+    validations:
+      required: true
+  - type: textarea
+    id: impact
+    attributes:
+      label: Potential impact
+      placeholder: "What could be exposed, who might be affected, and confidence level."
+    validations:
+      required: true
+  - type: checkboxes
+    id: immediate_actions
+    attributes:
+      label: Immediate containment actions
+      options:
+        - label: Affected package version was removed or replaced
+        - label: Storage permissions were reviewed/locked down
+        - label: Credentials were rotated if needed
+        - label: Public communication draft exists
+  - type: textarea
+    id: references
+    attributes:
+      label: Relevant references
+      description: Link official docs, logs, and public reports.
+      placeholder: "URLs only"

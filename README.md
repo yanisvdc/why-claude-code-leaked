@@ -1,81 +1,126 @@
-# Technical Analysis: The Claude Code Packaging Incident (v2.1.88)
+# Packaging Security Case Study: Claude Code v2.1.88
 
-A comprehensive post-mortem and technical breakdown of the March 31, 2026, source code exposure involving Anthropic's Claude Code CLI.
+This repository turns a public packaging incident into a reusable maintainer toolkit for npm package hardening.
+
+[![Package Audit](https://github.com/yanisvdc/why-claude-code-leaked/actions/workflows/package-audit.yml/badge.svg)](https://github.com/yanisvdc/why-claude-code-leaked/actions/workflows/package-audit.yml)
+[![License](https://img.shields.io/github/license/yanisvdc/why-claude-code-leaked)](https://github.com/yanisvdc/why-claude-code-leaked/blob/main/LICENSE)
+[![Last Commit](https://img.shields.io/github/last-commit/yanisvdc/why-claude-code-leaked)](https://github.com/yanisvdc/why-claude-code-leaked/commits/main)
 
 > [!IMPORTANT]
-> **Zero Proprietary Code Policy:** This repository does NOT host, mirror, or link to any leaked source code, binaries, or Anthropic intellectual property. It is strictly for educational analysis of npm packaging security and incident response.
+> **Zero Proprietary Code Policy**  
+> This project does **not** host, mirror, or link to leaked proprietary source code or binaries.  
+> It focuses on release engineering, package auditing, and supply chain defense patterns.
 
 ---
+
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/0ea82380-e41b-46c0-92a9-c5e4bf09a2d4" width="800"/>
+  <img src="https://github.com/user-attachments/assets/0ea82380-e41b-46c0-92a9-c5e4bf09a2d4" width="640" alt="Packaging security case study visual"/>
 </p>
 
-## 📝 Incident Overview
-On March 31, 2026, version **2.1.88** of the `@anthropic-ai/claude-code` package was published to the npm registry. Due to a configuration error, a **59.8 MB source map file** (`cli.js.map`) was included in the public distribution. This allowed researchers to reconstruct approximately **512,000 lines of unobfuscated TypeScript** across 1,906 files.
+## What This Repo Adds
 
-## 🛠️ The Root Cause (Technical Breakdown)
-The leak resulted from a "triple-failure" chain in the CI/CD pipeline:
+- A practical, copy-pasteable npm publish safety workflow
+- CI checks that fail on source maps and suspicious tarball growth
+- Structured, machine-readable references and timeline data
+- Maintainer docs to prevent repeat incidents in any Node ecosystem project
 
-1.  **Missing `.npmignore`:** The build process generated a **59.8 MB** source map. Because the `.npmignore` file (or the `files` field in `package.json`) did not explicitly exclude `*.map` files, it was bundled into the production npm package.
-2.  **Bun Runtime Bug:** Reports suggest a known issue in the **Bun runtime** (Bun bug #28001) caused source maps to be generated even when the configuration explicitly requested they be disabled for production builds.
-3.  **R2 Bucket Misconfiguration:** The source maps contained pointers to a ZIP archive on a Cloudflare R2 bucket. This bucket was inadvertently set to "Public," allowing the full codebase to be retrieved via the metadata found in the npm package.
+## Incident Snapshot (Public Reporting)
 
-## 🏗️ Architectural Insights (The "Harness")
-Research by security experts like [Chaofan Shou](https://x.com) revealed that the competitive moat is the **agent harness**, not just the model:
+Multiple reports on March 31, 2026 describe a packaging incident involving `@anthropic-ai/claude-code` v2.1.88:
 
-*   **KAIROS (Autonomous Mode):** A feature-gated mode (referenced 150+ times) for "Dreaming"—an offline process where a sub-agent consolidates memory and plans while the user is idle.
-*   **Undercover Mode:** A utility designed to "ghost-contribute" AI-written code to open-source projects by sanitizing commit messages to hide Anthropic's involvement.
-*   **ULTRAPLAN:** A remote planning system that offloads complex tasks to a Cloud Container running **Opus 4.6** for up to 30 minutes of "deep thinking".
-*   **Buddy Mode:** A hidden April Fools' feature: a Tamagotchi-style pet (18 species, including "Axolotl" and "Chonk") with RPG stats like `CHAOS` and `SNARK`.
+- A large source map (`cli.js.map`) was included in a public npm release
+- Anthropic described it as a human-error packaging issue, not a breach
+- Public reporting says no customer data or credentials were exposed
 
-## 🛠️ Defensive Toolkit
-Add these to your project to prevent becoming the next headline:
+This repository treats the event as a case study in artifact governance, not a reverse-engineering archive.
 
-### 1. The "Anti-Leak" CI Guardrail
-Place this in `.github/workflows/audit.yml` to automatically fail any PR that includes source maps in the build artifact:
-```yaml
-name: Production Artifact Audit
-on: [pull_request]
-jobs:
-  audit:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Check for .map files
-        run: |
-          if find ./dist -name "*.map" | grep -q "."; then
-            echo "❌ CRITICAL: Source maps detected in dist folder!"
-            exit 1
-          fi
+## Confirmed vs Inferred
+
+### Confirmed (from reporting + docs)
+- npm publishes files based on `package.json` `files`, `.npmignore`, and defaults
+- `npm pack --dry-run` can preview what ships before publish
+- public object storage settings can expose artifacts if misconfigured
+
+### Inferred (treat with caution)
+- exact internal build chain interactions
+- whether a specific runtime bug was causal versus incidental
+- architecture claims from third-party analysis of leaked material
+
+## Maintainer Toolkit
+
+Use these assets directly in your own repositories:
+
+- `scripts/audit-package.mjs` - cross-platform package-content auditor
+- `scripts/generate-pack-manifest.mjs` - creates baseline publish manifest
+- `scripts/compare-pack-manifest.mjs` - detects tarball drift against baseline
+- `scripts/audit-package.sh` - shell wrapper for CI pipelines
+- `scripts/audit-package.ps1` - PowerShell wrapper for Windows maintainers
+- `package-audit.config.json` - customizable audit policy
+- `.github/workflows/package-audit.yml` - GitHub Actions guardrail
+- `docs/npm-hardening-checklist.md` - release checklist
+- `docs/source-map-risks.md` - threat model and controls
+- `docs/adopt-in-5-minutes.md` - copy-paste onboarding for maintainers
+
+## Quick Start
+
+```bash
+node scripts/audit-package.mjs
 ```
 
-### 2. Manual Verification
-Always run `npm pack --dry-run` before publishing. This lets you inspect the exact file list that will be uploaded to the registry.
+Optional strict mode:
 
----
+```bash
+node scripts/audit-package.mjs --max-bytes=300000 --fail-on-license-missing
+```
 
-### 🔗 Authoritative Sources & Community Discussion
-*   **[Reddit: r/ClaudeAI - Claude Code Source Leak Megathread](https://reddit.com)**
-*   **[Layer5: The Fastest Growing Repo in History](https://layer5.io)**
-*   **[SOCRadar: Operational Risks for Security Teams](https://socradar.io)**
-*   **[VentureBeat: Malicious Repository Risks Following the Leak](https://venturebeat.com)**
+Generate and compare baseline manifest:
 
+```bash
+node scripts/generate-pack-manifest.mjs
+node scripts/compare-pack-manifest.mjs
+```
 
-## 🔍 Key Findings from Research Reports
-According to public analysis by security researchers (e.g., Chaofan Shou), the exposure revealed:
-*   **The Orchestration Layer:** Detailed logic on how the agent coordinates multi-step tool use and bash command validation.
-*   **Hidden Features:** References to unreleased modes such as `/buddy` (a Tamagotchi-style interaction) and "Dream" mode (background reasoning).
-*   **Safety Guardrails:** Internal system prompts and "Undercover" mode logic used to sanitize AI-generated commits.
+What it checks:
 
-## ⏰ Timeline of Events (March 31, 2026)
-*   **04:00 UTC:** Version 2.1.88 is pushed to npm.
-*   **04:23 UTC:** Security researchers identify the exposed source map on X (Twitter).
-*   **08:00 UTC:** Anthropic acknowledges the "human error," pulls the package, and releases a statement confirming no customer data was compromised.
+- blocks `.map` files by default
+- flags suspicious high-risk file patterns
+- blocks files over a configurable size threshold
+- warns when a package allowlist (`files`) is missing
+- supports repo-specific policy in `package-audit.config.json`
+- highlights unexpected tarball growth versus your committed baseline
 
-## 📚 Educational Resources & References
-*   [The Hacker News: Claude Code Leaked via npm Packaging](https://thehackernews.com)
-*   [WSJ: Anthropic Races to Contain Code Leak](https://wsj.com)
-*   [VentureBeat: What We Know About the Claude Code Exposure](https://venturebeat.com)
+## Data for Ongoing Updates
 
----
-*This repository is maintained for security research purposes. If you are a representative of Anthropic and have concerns regarding this analysis, please open an issue.*
+- `data/sources.json` - curated public source index
+- `data/timeline.json` - event timeline with confidence tags
+- `scripts/fetch_sources.py` - metadata refresher for source URLs
+
+## Community Ops Kit
+
+- `.github/ISSUE_TEMPLATE/packaging-incident-report.yml` - structured incident intake
+- `.github/ISSUE_TEMPLATE/audit-policy-request.yml` - policy improvement requests
+- `.github/PULL_REQUEST_TEMPLATE.md` - mandatory release-hygiene checklist
+- `docs/release-incident-runbook.md` - first 60-minute response playbook
+- `examples/npm-secure-package/` - copyable starter package with safe defaults
+
+## Why This Is Useful to the Community
+
+Most incident writeups stop at "what happened."  
+This repo provides reusable controls maintainers can apply immediately:
+
+- pre-publish artifact visibility
+- CI policy enforcement
+- safer defaults for package boundaries
+- repeatable documentation for team release discipline
+
+## Primary References
+
+- [npm package.json docs](https://docs.npmjs.com/cli/v9/configuring-npm/package-json/)
+- [npm publish docs](https://docs.npmjs.com/cli/v9/commands/npm-publish)
+- [npm pack docs](https://docs.npmjs.com/cli/v8/commands/npm-pack)
+- [Cloudflare R2 public buckets docs](https://developers.cloudflare.com/r2/buckets/public-buckets/)
+- [Bun issue #28001](https://github.com/oven-sh/bun/issues/28001)
+- [The Register coverage](https://www.theregister.com/2026/03/31/anthropic_claude_code_source_code/)
+- [VentureBeat coverage](https://venturebeat.com/technology/claude-codes-source-code-appears-to-have-leaked-heres-what-we-know/)
+
+See `data/sources.json` for categorized references and confidence notes.

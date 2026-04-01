@@ -1,0 +1,20 @@
+{
+  "name": "npm-secure-package-example",
+  "version": "0.1.0",
+  "description": "Example package demonstrating safer npm publish boundaries",
+  "license": "MIT",
+  "type": "module",
+  "main": "dist/index.js",
+  "files": [
+    "dist/",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "audit:package": "node ../../scripts/audit-package.mjs --config=../../package-audit.config.json",
+    "manifest:generate": "node ../../scripts/generate-pack-manifest.mjs",
+    "manifest:compare": "node ../../scripts/compare-pack-manifest.mjs",
+    "prepublishOnly": "npm run build && npm run audit:package"
+  }
+}

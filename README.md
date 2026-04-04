@@ -97,37 +97,13 @@ See `package-audit.config.json` and `configs/presets/`.
 
 Public reporting describes a **packaging mistake**: a problematic release of `@anthropic-ai/claude-code` (version **2.1.88**, late March 2026) included artifacts that were not appropriate for a public install, which then enabled broad reconstruction of **client-side** implementation (not the same thing as “the model file leaked”). Vendors and reporters framed it as **human error in release engineering**, not a classic network intrusion. For official context, see [CNBC’s summary of Anthropic’s statement](https://www.cnbc.com/2026/03/31/anthropic-leak-claude-code-internal-source.html).
 
-### What most informed observers agree on (strong consensus)
+### What most informed observers agree on
 
 These points come up again and again across forums and articles; treat them as the **sturdy baseline**, not hype:
 
 1. **Model weights are a different asset.** There is no serious claim that the leaked materials *are* or *replace* core model weights or training corpora. The competitive “crown jewels” of a frontier lab are still predominantly **not** what this incident type exposes.
 2. **The exposed surface is mostly “everything but the weights.”** Think terminal/CLI product code, integration glue, tool-calling paths, and large **system prompts** that tell the model how to behave inside the product.
 3. **That pattern matches how products are built today.** A modern coding agent is often **a model plus a thick control layer**: structured instructions, tools (files, shell, etc.), retries, and guardrails. Seeing prompt-heavy code is normal; it does not by itself mean the underlying model is “weak.”
-
-### What the leak plausibly illustrates (reasonable takeaways)
-
-Read these as **engineering sociology**, not proof of any one roadmap:
-
-- **Prompting is production technology.** Teams invest heavily in instructions, checklists, and runtime policies—not only in offline training.
-- **The product is the agent loop.** File edits, command execution, context handling, and multi-step plans are where much of the differentiated work lives.
-- **Feature flags and branches happen everywhere.** Code may mention experiments or codenames; that usually means “someone left a switch in the tree,” not “this exact feature ships next Tuesday.”
-
-### Where community chatter often overreaches (treat as speculation)
-
-Discussions (including busy threads on Reddit and similar forums) sometimes jump from **a string in a repo** to **a whole product strategy**. Stay skeptical of:
-
-- **“Codename = confirmed future model.”** Internal nicknames are common; mapping them to a public roadmap requires evidence outside the snippet.
-- **“The model is dishonest or lazy because the prompts say ‘be careful’.”** Instructions like “double-check,” “avoid hallucinations,” or “be thorough” are **standard defensive scaffolding**. They show how teams steer behavior at runtime—not that the model is uniquely broken.
-- **“Full prompt prediction / parallel futures are already deployed.”** It is plausible vendors experiment with prefetching, shallow intent hints, or cached tool plans—but **deep, branchy simulation of many futures** is expensive and easy to overstate. Default assumption: if it exists, it is likely **narrow, bounded, and cost-aware** unless independently demonstrated.
-
-### What actually matters for defenders and builders
-
-- **For security teams:** the incident is a reminder that **release pipelines are part of your attack surface**. Debug artifacts plus public registries plus object storage misconfigurations can create IP and abuse fallout even when nobody “hacked” you.
-- **For developers:** treat **unofficial mirrors and “leaked” installers** as untrusted supply chain; the interesting engineering lesson here is **packaging discipline**, not chasing binaries from strangers.
-- **For beginners learning AI systems:** the headline lesson is simple: **today’s AI products are stacks**—model + tools + prompts + policy—not a single magic file.
-
-This repository uses the story as motivation for **artifact governance**. It is not a leak archive and not a place to request or share proprietary code.
 
 ## Security risks (why teams should care)
 
@@ -145,34 +121,7 @@ The original failure was a **packaging and release-control** problem, not a stor
 
 **What this repo is for.** The toolkit here helps **publishers** avoid shipping debug artifacts and unexpected files. It does **not** replace dependency scanning, secret scanning, binary signing, or enterprise allowlisting. It complements those controls by shrinking accidental exposure at the source.
 
-## IP, policy, and “not open source” lessons
-
-Packaging mistakes can still produce **serious intellectual-property exposure** when build outputs include debugging bridges (for example, source maps) that make private implementation details recoverable from a public registry artifact. That is a **distribution and release-engineering** failure class: it is not the same thing as a network intrusion, but the downstream effects for a product team can still be large.
-
-Vendor-facing reporting summarized the incident as a **human-error packaging issue** and stated that customer data and credentials were not involved; see [CNBC’s reporting on Anthropic’s statement](https://www.cnbc.com/2026/03/31/anthropic-leak-claude-code-internal-source.html) for one primary-news account. This repository does not reproduce that statement verbatim.
-
-**Organizational guardrails that reduce harm:**
-
-- Treat any non-vendor redistribution, translation, or “rewrite” of leaked material as **outside normal open-source assumptions** unless you have explicit rights.
-- Train engineers that **visibility on GitHub does not equal a license**: curiosity-driven clones and forks can create compliance and employment-policy problems, not just security problems.
-- Separate “security incident response” from “IP incident response”: legal, communications, and engineering leads need different checklists even when the root cause is a mis-published artifact.
-- Assume **public attention spikes** will correlate with **copycat repos and scams** even when the original issue was accidental.
-
-Industry summaries in early April 2026 (including trade coverage such as *Cyber Magazine*) also discussed how AI-assisted rewrites and cross-language ports can blur lines between research and unauthorized derivative use. This README is not legal advice; route policy decisions through counsel.
-
-## How we label evidence in this repo
-
-When you read security stories online, it helps to sort claims into **how much evidence** they carry.
-
-### About the Claude Code incident narrative
-
-| Strength | What it means | Examples |
-|----------|----------------|----------|
-| **High** | Repeated across reputable reporting or vendor statements; stable over time | “Packaging mistake,” “client-side/orchestration exposure,” “not model weights” |
-| **Medium** | Fits known engineering practice; widely discussed but not always independently proven | “Heavy use of system prompts and tool orchestration” |
-| **Low / speculative** | Exciting, hard to falsify, often amplified socially | “Codename X proves model Y,” “full predictive engine in production” |
-
-### About the npm toolkit in this repository (always grounded in docs)
+## About the npm toolkit in this repository (always grounded in docs)
 
 These are **documented mechanics** you can rely on when shipping packages:
 

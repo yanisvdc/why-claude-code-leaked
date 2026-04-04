@@ -7,9 +7,8 @@
 [![Package Audit](https://github.com/yanisvdc/why-claude-code-leaked/actions/workflows/package-audit.yml/badge.svg?branch=main&event=push)](https://github.com/yanisvdc/why-claude-code-leaked/actions/workflows/package-audit.yml)
 [![License](https://img.shields.io/github/license/yanisvdc/why-claude-code-leaked)](https://github.com/yanisvdc/why-claude-code-leaked/blob/main/LICENSE)
 [![Last Commit](https://img.shields.io/github/last-commit/yanisvdc/why-claude-code-leaked)](https://github.com/yanisvdc/why-claude-code-leaked/commits/main)
-[![GitHub stars](https://img.shields.io/github/stars/yanisvdc/why-claude-code-leaked?style=social)](https://github.com/yanisvdc/why-claude-code-leaked)
 
-**Star the repo:** open [github.com/yanisvdc/why-claude-code-leaked](https://github.com/yanisvdc/why-claude-code-leaked) and click **Star** (top right). READMEs cannot run “Star” for you—this badge shows the count and links to the project.
+Feel free to **Star** the repo (top right on GitHub) if you want to keep it handy for reference.
 
 > [!IMPORTANT]
 > **Zero Proprietary Code Policy** — This project does **not** host or link to leaked proprietary source or binaries. It teaches **release safety** and ships reusable audit tooling.

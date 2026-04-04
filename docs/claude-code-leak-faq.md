@@ -1,11 +1,5 @@
 # Claude Code Leak FAQ (beginner-friendly)
 
-This page is for people who land here from searches like:
-
-- `claude code leak github`
-- `claude code leak repo`
-- `claw code leak` (typo)
-
 If you are **new to npm or supply-chain security**, read this FAQ first, then the main [README](../README.md).
 
 **Terms:** see the [glossary](./glossary.md) (written for non-developers and for data scientists).
@@ -68,12 +62,6 @@ Follow the steps in [adopt-in-5-minutes.md](./adopt-in-5-minutes.md). Short vers
 1. Copy the scripts and workflow into your repo.
 2. Run `node scripts/audit-package.mjs`.
 3. Add CI so every PR checks what would ship.
-
----
-
-## Why include typo terms like "claw code leak"?
-
-People search with mistakes. We’d rather send them to **safe, educational material** than to random forks or malware lures.
 
 ---
 
